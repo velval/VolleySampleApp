@@ -9,17 +9,32 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.rednineteen.android.sampleapp.databinding.MainActivityBinding;
+
+public class MainActivity extends BaseActivity<MainActivityBinding> {
+
+    public static final String API_URL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+
+    @Override
+    public int getActivityLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public int getToolbarId() {
+        return R.id.toolbar;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
