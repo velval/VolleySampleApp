@@ -33,10 +33,10 @@
                 android:layout_weight="1"
                 android:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa." />
 
-            <ImageView
+            <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/itemImage"
-                android:layout_width="@dimen/item_image_size"
-                android:layout_height="@dimen/item_image_size"
+                android:layout_width="@dimen/item_image_width"
+                android:layout_height="@dimen/item_image_height"
                 android:layout_marginLeft="@dimen/item_margin"
                 android:layout_marginStart="@dimen/item_margin"
                 android:scaleType="centerCrop"

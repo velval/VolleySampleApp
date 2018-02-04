@@ -9,13 +9,25 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.rednineteen.android.sampleapp.adapters.RowAdapter;
 import com.rednineteen.android.sampleapp.databinding.MainActivityBinding;
+import com.rednineteen.android.sampleapp.models.Content;
+import com.rednineteen.android.sampleapp.models.Row;
+import com.rednineteen.android.sampleapp.net.ApiRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity<MainActivityBinding> {
 
     public static final String API_URL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+
+    private RowAdapter adapter;
 
     @Override
     public int getActivityLayoutId() {
@@ -33,6 +45,32 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
+        // Initialize the list adapter
+        adapter = new RowAdapter(this, queue, new ArrayList<Row>());
+        binding.list.setAdapter(adapter);
+
+        // Configure the api request to retrieve the content from the URL.
+        ApiRequest request = new ApiRequest(Request.Method.GET, API_URL,
+                new Response.Listener<Content>() {
+                    @Override
+                    public void onResponse(Content response) {
+                        binding.progressBar.setVisibility(View.GONE);
+                        if (response != null && response.rows != null) {
+                            adapter.addAll(response.rows);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        binding.progressBar.setVisibility(View.GONE);
+                        System.out.println("ERROR: " + error);
+                    }
+                });
+        // Prevent request caching
+        request.setShouldCache(false);
+        // Trigger request by adding to the queue.
+        queue.add(request);
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override

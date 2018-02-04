@@ -3,5 +3,6 @@
 
     <dimen name="item_padding">10dp</dimen>
     <dimen name="item_margin">10dp</dimen>
-    <dimen name="item_image_size">120dp</dimen>
+    <dimen name="item_image_width">120dp</dimen>
+    <dimen name="item_image_height">80dp</dimen>
 </resources>
