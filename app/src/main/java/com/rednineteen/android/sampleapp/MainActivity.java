@@ -38,7 +38,8 @@ import java.util.Map;
 public class MainActivity extends BaseActivity<MainActivityBinding> {
 
     public static final String KEY_DATA = "KEY_DATA";
-    public static final String API_URL  = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+    //public static final String API_URL  = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+    public static final String API_URL  = "https://dl.dropboxusercontent.co";
     //public static final String API_URL = "https://dev.correllink.com/test.json";
 
     private RowAdapter adapter;
@@ -117,6 +118,8 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
                     new Response.Listener<Content>() {
                         @Override
                         public void onResponse(Content response) {
+                            binding.list.setVisibility(View.VISIBLE);
+                            binding.errorContent.setVisibility(View.GONE);
                             if (response != null && response.rows != null) {
                                 //Set content for future use for example if screen is rotated
                                 content = response;
@@ -130,11 +133,12 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
                             }
                         }
                     }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println("ERROR: " + error);
-                    binding.swipeRefresh.setRefreshing(false);
-                }
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            binding.swipeRefresh.setRefreshing(false);
+                            binding.errorContent.setVisibility(View.VISIBLE);
+                            binding.list.setVisibility(View.GONE);
+                        }
             });
         }
         // Prevent request caching
