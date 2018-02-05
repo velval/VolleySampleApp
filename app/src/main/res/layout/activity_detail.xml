@@ -20,7 +20,8 @@
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/itemImage"
                 android:layout_height="@dimen/item_image_desc_height"
-                android:layout_width="match_parent" />
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"/>
             <TextView
                 android:id="@+id/itemDescription"
                 android:layout_height="wrap_content"

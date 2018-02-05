@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.rednineteen.android.sampleapp.App;
 import com.rednineteen.android.sampleapp.R;
 import com.rednineteen.android.sampleapp.models.Row;
 
@@ -26,24 +27,9 @@ import java.util.List;
 
 public class RowAdapter extends ArrayAdapter<Row> {
 
-    private ImageLoader imageLoader;
 
-    public RowAdapter(@NonNull Context context, RequestQueue queue, @NonNull List<Row> objects) {
+    public RowAdapter(@NonNull Context context, @NonNull List<Row> objects) {
         super(context, 0, objects);
-        imageLoader = new ImageLoader(queue, new ImageLoader.ImageCache() {
-
-            private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
-
-            @Override
-            public Bitmap getBitmap(String url) {
-                return mCache.get(url);
-            }
-
-            @Override
-            public void putBitmap(String url, Bitmap bitmap) {
-                mCache.put(url, bitmap);
-            }
-        });
     }
 
     @NonNull
@@ -81,7 +67,7 @@ public class RowAdapter extends ArrayAdapter<Row> {
             holder.imageView.setVisibility(View.VISIBLE);
             holder.imageView.setDefaultImageResId(R.drawable.default_image);
             holder.imageView.setErrorImageResId(R.drawable.image_not_found);
-            holder.imageView.setImageUrl(row.imageHref, imageLoader);
+            holder.imageView.setImageUrl(row.imageHref, App.getInstance().getImageLoader());
         }
 
         return convertView;

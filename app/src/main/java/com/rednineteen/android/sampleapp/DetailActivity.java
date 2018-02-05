@@ -37,7 +37,6 @@ public class DetailActivity extends BaseActivity<DetailActivityBinding> {
         binding.itemDescription.setText(description);
         binding.itemImage.setDefaultImageResId(R.drawable.default_image);
         binding.itemImage.setErrorImageResId(R.drawable.image_not_found);
-        //binding.itemImage.setImageUrl(imageUrl, imageLoader);
-
+        binding.itemImage.setImageUrl(imageUrl, App.getInstance().getImageLoader());
     }
 }

@@ -42,7 +42,6 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
     //public static final String API_URL = "https://dev.correllink.com/test.json";
 
     private RowAdapter adapter;
-    private RequestQueue queue;
     private ApiRequest request;
     private Content content;
 
@@ -61,8 +60,6 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Instantiate the RequestQueue. Use a custom HTTP Stack to allow for http to https redirects
-        queue = Volley.newRequestQueue(this, new OkHttpStack());
 
         binding.swipeRefresh.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
@@ -88,12 +85,12 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
         // Initialize the list adapter
         if (content != null) {
             // If content already loaded, use it.
-            adapter = new RowAdapter(this, queue, content.rows);
+            adapter = new RowAdapter(this, content.rows);
             // Set ActionBar title
             setTitle(content.title);
         } else {
             // If no content fetch it from the API.
-            adapter = new RowAdapter(this, queue, new ArrayList<Row>());
+            adapter = new RowAdapter(this, new ArrayList<Row>());
             // Show progress as we are making a network call.
             binding.swipeRefresh.setRefreshing(true);
             createSendRequest();
@@ -143,7 +140,7 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
         // Prevent request caching
         request.setShouldCache(false);
         // Trigger request by adding to the queue.
-        queue.add(request);
+        App.getInstance().addToRequestQueue(request);
     }
 
     @Override
