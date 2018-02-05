@@ -38,8 +38,8 @@ import java.util.Map;
 public class MainActivity extends BaseActivity<MainActivityBinding> {
 
     public static final String KEY_DATA = "KEY_DATA";
-    //public static final String API_URL  = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
-    public static final String API_URL  = "https://dl.dropboxusercontent.co";
+    public static final String API_URL  = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+    //public static final String API_URL  = "https://dl.dropboxusercontent.co";
     //public static final String API_URL = "https://dev.correllink.com/test.json";
 
     private RowAdapter adapter;
