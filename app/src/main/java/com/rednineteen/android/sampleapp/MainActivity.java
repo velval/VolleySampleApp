@@ -9,23 +9,33 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BaseHttpStack;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.HttpClientStack;
+import com.android.volley.toolbox.HttpResponse;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.rednineteen.android.sampleapp.adapters.RowAdapter;
 import com.rednineteen.android.sampleapp.databinding.MainActivityBinding;
 import com.rednineteen.android.sampleapp.models.Content;
 import com.rednineteen.android.sampleapp.models.Row;
 import com.rednineteen.android.sampleapp.net.ApiRequest;
+import com.rednineteen.android.sampleapp.net.OkHttpStack;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity<MainActivityBinding> {
 
     public static final String API_URL = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+    //public static final String API_URL = "https://dev.correllink.com/test.json";
 
     private RowAdapter adapter;
 
@@ -43,8 +53,8 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
+        // Instantiate the RequestQueue. Use a custom HTTP Stack to allow for http to https redirects
+        RequestQueue queue = Volley.newRequestQueue(this, new OkHttpStack());
         // Initialize the list adapter
         adapter = new RowAdapter(this, queue, new ArrayList<Row>());
         binding.list.setAdapter(adapter);
