@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -99,6 +100,17 @@ public class MainActivity extends BaseActivity<MainActivityBinding> {
         }
         // Bind adapter to the listView
         binding.list.setAdapter(adapter);
+        binding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Row item = content.rows.get(position);
+                Bundle extras = new Bundle();
+                extras.putString(DetailActivity.KEY_TITLE, item.title);
+                extras.putString(DetailActivity.KEY_DESC, item.description);
+                extras.putString(DetailActivity.KEY_IMAGE, item.imageHref);
+                goTo(DetailActivity.class, extras);
+            }
+        });
     }
 
     private void createSendRequest() {

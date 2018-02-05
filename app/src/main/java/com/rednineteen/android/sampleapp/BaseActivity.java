@@ -1,5 +1,7 @@
 package com.rednineteen.android.sampleapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -37,5 +39,17 @@ public abstract class BaseActivity <T extends ViewDataBinding> extends AppCompat
     public void setTitle(String title) {
         ActionBar ab = getSupportActionBar();
         if (ab != null) ab.setTitle(title);
+    }
+
+    public void goTo(Class<? extends Activity> clazz, Bundle extras) {
+        goTo(clazz, extras, false);
+    }
+
+    public void goTo(Class<? extends Activity> clazz, Bundle extras, boolean terminate) {
+        Intent intent = new Intent(this, clazz);
+        // Init extras if any
+        if (extras != null) intent.putExtras(extras);
+        startActivity(intent);
+        if (terminate) finish();
     }
 }

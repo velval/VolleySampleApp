@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data class="DetailActivityBinding">
+    </data>
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/itemImage"
+                android:layout_height="@dimen/item_image_desc_height"
+                android:layout_width="match_parent" />
+            <TextView
+                android:id="@+id/itemDescription"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:padding="@dimen/fab_margin"/>
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

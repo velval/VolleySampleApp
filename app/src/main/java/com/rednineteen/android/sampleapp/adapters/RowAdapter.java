@@ -26,7 +26,7 @@ import java.util.List;
 
 public class RowAdapter extends ArrayAdapter<Row> {
 
-    ImageLoader imageLoader;
+    private ImageLoader imageLoader;
 
     public RowAdapter(@NonNull Context context, RequestQueue queue, @NonNull List<Row> objects) {
         super(context, 0, objects);
