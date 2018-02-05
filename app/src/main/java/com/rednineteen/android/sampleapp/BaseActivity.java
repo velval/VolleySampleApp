@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -31,5 +32,10 @@ public abstract class BaseActivity <T extends ViewDataBinding> extends AppCompat
     public void setActionToolBar(int toolbarResId) {
         Toolbar toolbar = (Toolbar) findViewById(toolbarResId);
         if (toolbar != null) setSupportActionBar(toolbar);
+    }
+
+    public void setTitle(String title) {
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) ab.setTitle(title);
     }
 }

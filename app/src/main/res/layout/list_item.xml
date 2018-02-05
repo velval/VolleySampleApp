@@ -26,12 +26,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_margin">
-            <TextView
-                android:id="@+id/itemDescription"
+
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa." />
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/itemDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa." />
+
+            </FrameLayout>
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/itemImage"
@@ -40,7 +46,7 @@
                 android:layout_marginLeft="@dimen/item_margin"
                 android:layout_marginStart="@dimen/item_margin"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_arrow_right" />
+                app:srcCompat="@drawable/default_image" />
 
         </LinearLayout>
 

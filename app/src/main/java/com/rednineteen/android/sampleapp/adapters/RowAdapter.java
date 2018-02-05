@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.LruCache;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,11 +61,28 @@ public class RowAdapter extends ArrayAdapter<Row> {
             holder = (RowViewHolder) convertView.getTag();
         }
 
-        holder.titleText.setText(row.title);
-        holder.descText.setText(row.description);
-        holder.imageView.setDefaultImageResId(R.drawable.default_image);
-        holder.imageView.setErrorImageResId(R.drawable.ic_launcher_background);
-        holder.imageView.setImageUrl(row.imageHref, imageLoader);
+        if (TextUtils.isEmpty(row.title)) {
+            holder.titleText.setVisibility(View.GONE);
+        } else {
+            holder.titleText.setVisibility(View.VISIBLE);
+            holder.titleText.setText(row.title);
+        }
+
+        if (TextUtils.isEmpty(row.description)) {
+            holder.descText.setVisibility(View.GONE);
+        } else {
+            holder.descText.setVisibility(View.VISIBLE);
+            holder.descText.setText(row.description);
+        }
+
+        if (TextUtils.isEmpty(row.imageHref)) {
+            holder.imageView.setVisibility(View.GONE);
+        } else {
+            holder.imageView.setVisibility(View.VISIBLE);
+            holder.imageView.setDefaultImageResId(R.drawable.default_image);
+            holder.imageView.setErrorImageResId(R.drawable.image_not_found);
+            holder.imageView.setImageUrl(row.imageHref, imageLoader);
+        }
 
         return convertView;
     }
